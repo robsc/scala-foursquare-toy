@@ -36,9 +36,10 @@ class HelloWorld {
          "EWCYTWHYTCHR2RNHEXIAJDCWSZY0NKAYS4A2SGNQ5ZEROGZS")
     val authApp = new AuthApp(caller, access_code)
     val sf_foursquare = Some("4e756cdc922ef20af59bcf10")
-    authApp.addCheckin(sf_foursquare).get
-
-    bind("n", space, "callbackname" -> Text(access_code))
+    val response = authApp.addCheckin(sf_foursquare).get
+    val user = authApp.userDetail("self").get.response.get.user
+    val user_string = "Welcome " + user.firstName + " " + user.lastName.get
+    bind("n", space, "callbackname" -> Text(user_string))
   }
   
   /*
